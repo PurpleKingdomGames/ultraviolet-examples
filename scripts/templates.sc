@@ -7,7 +7,7 @@ object HomePage {
   def page(projectList: List[String]) =
     "<!DOCTYPE html>" +
       html(
-        head(title := "Dave's Shader List")(
+        head(title := "Ultraviolet Examples")(
           meta(charset := "UTF-8"),
           link(
             rel  := "stylesheet",
@@ -15,7 +15,7 @@ object HomePage {
           )
         ),
         body(
-          h1("Dave's Shader Reference"),
+          h1("Ultraviolet Examples"),
           p(
             "Click on any of the links below."
           ),
@@ -23,7 +23,7 @@ object HomePage {
             .map(_.split("/").toList.drop(1))
             .map {
               case category :: names =>
-                category -> names.mkString(".")
+                category -> names.mkString("/")
 
               case unexpected =>
                 throw new Exception("Failed trying to convert this to a tuple: " + unexpected)
