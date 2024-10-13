@@ -3,14 +3,33 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.15.2`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.17.0`, millindigo._
+import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
 
-import $ivy.`io.github.davidgregory084::mill-tpolecat::0.3.5`
-import io.github.davidgregory084.TpolecatModule
+trait ShaderModule extends MillIndigo {
+  def scalaVersion   = "3.5.0"
+  def scalaJSVersion = "1.17.0"
 
-trait ShaderModule extends MillIndigo with TpolecatModule {
-  def scalaVersion   = "3.3.1"
-  def scalaJSVersion = "1.14.0"
+  override def scalacOptions = T {
+    val flags = super.scalacOptions() ++
+      ScalacOptions.defaultTokensForVersion(ScalaVersion.unsafeFromString(scalaVersion())) ++
+      Seq("-Xfatal-warnings")
+
+    /*
+    By default, we get the following flags:
+
+    -encoding, utf8, -deprecation, -feature, -unchecked,
+    -language:experimental.macros, -language:higherKinds,
+    -language:implicitConversions, -Xkind-projector,
+    -Wvalue-discard, -Wnonunit-statement, -Wunused:implicits,
+    -Wunused:explicits, -Wunused:imports, -Wunused:locals,
+    -Wunused:params, -Wunused:privates, -Xfatal-warnings
+     */
+
+    // Alledgedly unused local definitions are unavoidable in Ultraviolet,
+    // so we remove the flag to make things tolerable.
+    flags.filterNot(_ == "-Wunused:locals")
+  }
 
   def indigoOptions: IndigoOptions
 
@@ -62,10 +81,11 @@ trait ShaderModule extends MillIndigo with TpolecatModule {
       }
     }
 
-  val indigoVersion = "0.15.2"
+  val indigoVersion = "0.17.0"
 
   def ivyDeps =
     Agg(
+      ivy"io.indigoengine::ultraviolet::0.3.0",
       ivy"io.indigoengine::indigo-json-circe::$indigoVersion",
       ivy"io.indigoengine::indigo::$indigoVersion",
       ivy"io.indigoengine::indigo-extras::$indigoVersion"

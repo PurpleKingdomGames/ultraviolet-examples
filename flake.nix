@@ -16,6 +16,9 @@
             jdkToUse
             sbtWithJRE
             millWithJRE
+            pkgs.nodejs
+            pkgs.yarn
+            pkgs.nodePackages_latest.http-server
           ];
         };
       }

@@ -22,8 +22,8 @@ object HomePage {
           projectList
             .map(_.split("/").toList.drop(1))
             .map {
-              case List(category, name) =>
-                category -> name
+              case category :: names =>
+                category -> names.mkString(".")
 
               case unexpected =>
                 throw new Exception("Failed trying to convert this to a tuple: " + unexpected)
