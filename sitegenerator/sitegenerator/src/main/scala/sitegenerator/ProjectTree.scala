@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 
 enum ProjectTree:
   case Branch(name: String, children: List[ProjectTree])
-  case Leaf(name: String)
+  case Leaf(name: String, path: List[String])
   case Empty
 
   def prettyPrint(level: Int): String =
@@ -14,9 +14,9 @@ enum ProjectTree:
         val childStr = children.map(_.prettyPrint(level + 1)).mkString("\n")
         s"$indent$name\n$childStr"
 
-      case ProjectTree.Leaf(name) =>
+      case ProjectTree.Leaf(name, path) =>
         val indent = "  " * level
-        s"$indent$name"
+        s"$indent$name: $path"
 
       case ProjectTree.Empty =>
         ""
@@ -27,27 +27,31 @@ enum ProjectTree:
   def isEmpty: Boolean =
     this match
       case Branch(name, children) => false
-      case Leaf(name)             => false
+      case Leaf(name, _)          => false
       case Empty                  => true
 
   def hasName(name: String): Boolean =
     this match
       case Branch(n, _) => n == name
-      case Leaf(n)      => n == name
+      case Leaf(n, _)   => n == name
       case Empty        => false
 
 object ProjectTree:
 
   def pathToProjectTree(path: List[String]): ProjectTree =
-    path match
-      case Nil =>
-        ProjectTree.Empty
 
-      case head :: Nil =>
-        ProjectTree.Leaf(head)
+    def rec(remaining: List[String]): ProjectTree =
+      remaining match
+        case Nil =>
+          ProjectTree.Empty
 
-      case head :: tail =>
-        ProjectTree.Branch(head, List(pathToProjectTree(tail)))
+        case head :: Nil =>
+          ProjectTree.Leaf(head, path)
+
+        case head :: tail =>
+          ProjectTree.Branch(head, List(rec(tail)))
+
+    rec(path)
 
   def stringToProjectTree(path: String): ProjectTree =
     pathToProjectTree(path.split("""\.""").toList)
@@ -65,10 +69,10 @@ object ProjectTree:
         case ProjectTree.Empty :: pts =>
           rec(pts, acc)
 
-        case (pt @ ProjectTree.Leaf(name)) :: pts if acc.isEmpty =>
+        case (pt @ ProjectTree.Leaf(name, _)) :: pts if acc.isEmpty =>
           rec(pts, List(pt))
 
-        case (pt @ ProjectTree.Leaf(name)) :: pts =>
+        case (pt @ ProjectTree.Leaf(name, _)) :: pts =>
           rec(pts, acc :+ pt)
 
         case (pt @ ProjectTree.Branch(name, _)) :: pts if acc.isEmpty =>
@@ -102,17 +106,17 @@ object ProjectTree:
           ) =>
         List(b1, b2)
 
-      case (ProjectTree.Leaf(nameA), ProjectTree.Leaf(nameB))
+      case (ProjectTree.Leaf(nameA, p), ProjectTree.Leaf(nameB, _))
           if nameA == nameB =>
-        List(ProjectTree.Leaf(nameA))
+        List(ProjectTree.Leaf(nameA, p))
 
-      case (ProjectTree.Branch(nameA, childrenA), ProjectTree.Leaf(nameB)) =>
-        List(ProjectTree.Branch(nameA, childrenA :+ ProjectTree.Leaf(nameB)))
+      case (ProjectTree.Branch(nameA, childrenA), ProjectTree.Leaf(nameB, p)) =>
+        List(ProjectTree.Branch(nameA, childrenA :+ ProjectTree.Leaf(nameB, p)))
 
-      case (ProjectTree.Leaf(nameA), ProjectTree.Branch(nameB, childrenB)) =>
-        List(ProjectTree.Branch(nameB, ProjectTree.Leaf(nameA) :: childrenB))
+      case (ProjectTree.Leaf(nameA, p), ProjectTree.Branch(nameB, childrenB)) =>
+        List(ProjectTree.Branch(nameB, ProjectTree.Leaf(nameA, p) :: childrenB))
 
-      case (l1 @ ProjectTree.Leaf(nameA), l2 @ ProjectTree.Leaf(nameB)) =>
+      case (l1 @ ProjectTree.Leaf(nameA, _), l2 @ ProjectTree.Leaf(nameB, _)) =>
         List(l1, l2)
 
       case (pt, ProjectTree.Empty) =>
