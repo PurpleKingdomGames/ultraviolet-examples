@@ -2,12 +2,19 @@ package sitegenerator
 
 object SiteGenerator:
 
+  // TODO: Cli args for working directory, and where to link or not
   @main def run: Unit =
-    val projects = buildProjectList(os.pwd / os.up)
+    val wd = os.pwd / os.up
 
-    println(projects)
+    val projects = buildProjectList(wd)
+    val trees = convertProjectListToTree(projects)
 
-    val tree = convertProjectListToTree(projects)
+    println("Found projects:")
+    println(trees.map(_.prettyPrint).mkString("\n"))
+
+    println("Building demo site...")
+    makeDemoSite(true, projects, wd)
+
     println("Done")
 
     // make(linkAll = true)
@@ -42,20 +49,12 @@ object SiteGenerator:
       .takeWhile(_ != null)
       .toList
 
-  def convertProjectListToTree(projectList: List[String]): Unit =
-    val x = projectList.map(ProjectTree.stringToProjectTree)
-
-    // println(x.map(_.prettyPrint).mkString("\n"))
-
-    val y = ProjectTree.combineTrees(x)
-
-    println(y.map(_.prettyPrint).mkString("\n"))
-    ()
+  def convertProjectListToTree(projectList: List[String]): List[ProjectTree] =
+    val treeList = projectList.map(ProjectTree.stringToProjectTree)
+    ProjectTree.combineTrees(treeList)
 
   // LinkAll is a flag to build all the shaders before generating the site
-  def make(linkAll: Boolean, wd: os.Path) =
-    val projectList = buildProjectList(wd)
-
+  def makeDemoSite(linkAll: Boolean, projectList: List[String], wd: os.Path) =
     // Build all the shaders
     if (linkAll) {
       projectList.foreach { pjt =>
