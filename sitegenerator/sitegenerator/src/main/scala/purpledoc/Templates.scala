@@ -1,4 +1,4 @@
-package sitegenerator
+package purpledoc
 
 import scalatags.Text.all._
 

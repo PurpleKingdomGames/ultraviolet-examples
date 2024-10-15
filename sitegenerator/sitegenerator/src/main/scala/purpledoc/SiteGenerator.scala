@@ -1,66 +1,17 @@
-package sitegenerator
+package purpledoc
 
 object SiteGenerator:
 
-  // TODO: Cli args for working directory, and where to link or not
-  @main def run: Unit =
-    val wd = os.pwd / os.up
-
-    val projects = buildProjectList(wd)
-    val trees = convertProjectListToTree(projects)
-
-    println("Found projects:")
-    println(trees.map(_.prettyPrint).mkString("\n"))
-
-    println("Building demo site...")
-    makeDemoSite(true, projects, wd)
-
-    println("Done")
-
-    // make(linkAll = true)
-
-  def buildProjectList(wd: os.Path): List[String] =
-    // Extract all sub-projects
-    val findProjects = os
-      .proc(
-        "./mill",
-        "resolve",
-        "__.fullLinkJS"
-      )
-      .spawn(cwd = wd)
-
-    val filterOutTestProjects = os
-      .proc(
-        "grep",
-        "-v",
-        "test"
-      )
-      .spawn(cwd = wd, stdin = findProjects.stdout)
-
-    val cleanUpNames = os
-      .proc(
-        "sed",
-        "s/.fullLinkJS//"
-      )
-      .spawn(cwd = wd, stdin = filterOutTestProjects.stdout)
-
-    LazyList
-      .continually(cleanUpNames.stdout.readLine())
-      .takeWhile(_ != null)
-      .toList
-
-  def convertProjectListToTree(projectList: List[String]): List[ProjectTree] =
-    val treeList = projectList.map(ProjectTree.stringToProjectTree)
-    ProjectTree.combineTrees(treeList)
-
+  // TODO: Base this on the tree structure so that you can have nicely nested projects lists on the contents page.
   // LinkAll is a flag to build all the shaders before generating the site
   def makeDemoSite(linkAll: Boolean, projectList: List[String], wd: os.Path) =
     // Build all the shaders
-    if (linkAll) {
+    if linkAll then
+      println("Building all projects.")
       projectList.foreach { pjt =>
         os.proc("./mill", s"$pjt.buildGameFull").call(cwd = wd)
       }
-    }
+    else println("Skipping project builds.")
 
     // Recreate the docs directory
     val docs = wd / "docs"

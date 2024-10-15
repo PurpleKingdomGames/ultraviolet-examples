@@ -1,4 +1,4 @@
-package sitegenerator
+package purpledoc
 
 import scala.annotation.tailrec
 
