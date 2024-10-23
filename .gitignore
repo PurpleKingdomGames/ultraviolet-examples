@@ -42,6 +42,7 @@ metals.sbt
 .bsp/
 .ammonite
 .coursier
+.purpledoc
 
 # Direnv
 .direnv

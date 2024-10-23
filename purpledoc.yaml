@@ -1,0 +1,5 @@
+# Ultraviolet purpledoc config
+inputs:
+  staticSite: website
+outputs:
+  destination: docs
