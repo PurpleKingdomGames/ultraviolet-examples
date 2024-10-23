@@ -3,12 +3,24 @@ import indigo.*
 import scala.scalajs.js.annotation.*
 import generated.*
 
+/** ## Colours example
+  *
+  * A simple shader that changes the colour of the entity based on the time. The shader is based on
+  * the default shader from https://www.shadertoy.com/
+  */
 @JSExportTopLevel("IndigoGame")
 object Colours extends IndigoShader:
 
   val config: GameConfig =
     Config.config.noResize
 
+  /* This is a comment */
+  /*
+  As is
+  this
+   */
+  /** And this, yes indeed. More here too.
+    */
   val assets: Set[AssetType]      = Assets.assets.assetSet
   val channel0: Option[AssetPath] = None
   val channel1: Option[AssetPath] = None
@@ -26,7 +38,9 @@ object CustomShader:
       EntityShader.fragment[FragmentEnv](fragment, FragmentEnv.reference)
     )
 
+  // ```scala
   import ultraviolet.syntax.*
+  // ```
 
   // Based on the default shader from https://www.shadertoy.com/
 

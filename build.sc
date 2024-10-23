@@ -10,7 +10,7 @@ import $file.scripts.gensite
 
 import indigoplugin._
 
-object shaders extends mill.Module {
+object examples extends mill.Module {
 
   def genSite(linkAll: Boolean = true) = T.command {
     gensite.make(linkAll)
