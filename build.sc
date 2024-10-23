@@ -5,16 +5,10 @@ import mill.scalajslib._
 import mill.scalajslib.api._
 
 import $file.scripts.shadermodule
-import $file.scripts.templates
-import $file.scripts.gensite
 
 import indigoplugin._
 
 object examples extends mill.Module {
-
-  def genSite(linkAll: Boolean = true) = T.command {
-    gensite.make(linkAll)
-  }
 
   object fragment extends mill.Module {
 
