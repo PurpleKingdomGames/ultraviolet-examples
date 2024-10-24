@@ -3,3 +3,16 @@ inputs:
   staticSite: website
 outputs:
   destination: docs
+website:
+  title: Ultraviolet
+  description: Scala 3 to GLSL transpiler
+  logo:
+    image: tyrian-horizontal.svg
+    width: 150.0
+    height: 50.0
+repo:
+  name: Github
+  url: https://github.com/PurpleKingdomGames/tyrian
+discord:
+  name: Discord
+  url: https://discord.gg/b5CD47g
