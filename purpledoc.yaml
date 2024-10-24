@@ -6,12 +6,12 @@ outputs:
 website:
   title: Ultraviolet
   description: Scala 3 to GLSL transpiler
-  topNavLogo:
-    image: tyrian-horizontal.svg
-    width: 150.0
-    height: 50.0
-  logo:
-    image: tyrian-menu-logo.svg
+  # topNavLogo:
+  #   image: tyrian-horizontal.svg
+  #   width: 150.0
+  #   height: 50.0
+  # logo:
+  #   image: tyrian-menu-logo.svg
   latestRelease: 0.3.0
   # baseUrl: https://purplekingdomgames.github.io/ultraviolet-examples/
   baseUrl: http://127.0.0.1:8080
