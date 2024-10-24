@@ -13,10 +13,12 @@ website:
   logo:
     image: tyrian-menu-logo.svg
   latestRelease: 0.3.0
-  baseUrl: https://purplekingdomgames.github.io/ultraviolet-examples/
+  # baseUrl: https://purplekingdomgames.github.io/ultraviolet-examples/
+  baseUrl: http://127.0.0.1:8080
 repo:
   name: Github
-  url: https://github.com/PurpleKingdomGames/ultraviolet
+  url: https://github.com/PurpleKingdomGames/ultraviolet-examples/tree/doc-tooling
+  editBaseUrl: https://github.com/PurpleKingdomGames/ultraviolet-examples/tree/doc-tooling
 discord:
   name: Discord
   url: https://discord.gg/b5CD47g
