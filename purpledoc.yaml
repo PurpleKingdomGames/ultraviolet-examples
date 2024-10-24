@@ -12,6 +12,8 @@ website:
     height: 50.0
   logo:
     image: tyrian-menu-logo.svg
+  latestRelease: 0.3.0
+  baseUrl: https://purplekingdomgames.github.io/ultraviolet-examples/
 repo:
   name: Github
   url: https://github.com/PurpleKingdomGames/ultraviolet
