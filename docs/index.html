@@ -1,1 +1,139 @@
-<!DOCTYPE html><html><head title="Ultraviolet Examples"><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" /></head><body><h1>Ultraviolet Examples</h1><p>Click on any of the links below.</p><div><p>Vertex</p><ul><li><a href="./shaders/vertex/minimal">Minimal</a></li></ul></div><div><p>Fragment</p><ul><li><a href="./shaders/fragment/basics/colours">Basics/colours</a></li><li><a href="./shaders/fragment/basics/minimal">Basics/minimal</a></li><li><a href="./shaders/fragment/demos/campfire">Demos/campfire</a></li><li><a href="./shaders/fragment/demos/glowing-star">Demos/glowing star</a></li><li><a href="./shaders/fragment/demos/pulsingbox">Demos/pulsingbox</a></li><li><a href="./shaders/fragment/noise/cellular-noise">Noise/cellular noise</a></li><li><a href="./shaders/fragment/noise/classic-perlin-noise">Noise/classic perlin noise</a></li><li><a href="./shaders/fragment/noise/gradient-noise">Noise/gradient noise</a></li><li><a href="./shaders/fragment/noise/simplex-noise">Noise/simplex noise</a></li><li><a href="./shaders/fragment/noise/white-noise">Noise/white noise</a></li><li><a href="./shaders/fragment/patterns/grid">Patterns/grid</a></li><li><a href="./shaders/fragment/patterns/rainbow">Patterns/rainbow</a></li><li><a href="./shaders/fragment/patterns/simple-voronoi">Patterns/simple voronoi</a></li><li><a href="./shaders/fragment/patterns/stripes">Patterns/stripes</a></li><li><a href="./shaders/fragment/patterns/wavy-stripes">Patterns/wavy stripes</a></li><li><a href="./shaders/fragment/sdf/circle">Sdf/circle</a></li><li><a href="./shaders/fragment/sdf/square">Sdf/square</a></li><li><a href="./shaders/fragment/sdf/star">Sdf/star</a></li><li><a href="./shaders/fragment/shapes/doughnut">Shapes/doughnut</a></li><li><a href="./shaders/fragment/shapes/metaballs">Shapes/metaballs</a></li></ul></div><div><p>Language-reference</p><ul><li><a href="./shaders/language-reference/imports">Imports</a></li></ul></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Ultraviolet</title>
+  
+  
+  <meta name="description" content="Scala 3 to GLSL transpiler"/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="helium/site/landing-page.css" />
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+  <script src="helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="documentation/"><img src="img/tyrian-horizontal.svg" alt="Scala 3 to GLSL transpiler" title="Ultraviolet" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/tyrian">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/tyrian">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="documentation/">Ultraviolet</a></li>
+    <li class="level2 nav-leaf"><a href="documentation/motivation.html">Motivation</a></li>
+    <li class="level2 nav-leaf"><a href="documentation/example.html">Example: Shadertoy</a></li>
+    <li class="level2 nav-leaf"><a href="documentation/comparison.html">Language feature comparison</a></li>
+    <li class="level1 nav-node"><a href="examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="examples/fragment/">Fragment</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/basics/">Basics</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/basics/colours/">Colours</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/basics/minimal/">Minimal</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/demos/">Demos</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/demos/campfire/">Campfire</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/demos/glowing-star/">Glowing star</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/demos/pulsingbox/">Pulsingbox</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/noise/">Noise</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/noise/cellular-noise/">Cellular noise</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/noise/classic-perlin-noise/">Classic perlin noise</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/noise/gradient-noise/">Gradient noise</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/noise/simplex-noise/">Simplex noise</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/noise/white-noise/">White noise</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/patterns/">Patterns</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/patterns/grid/">Grid</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/patterns/rainbow/">Rainbow</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/patterns/simple-voronoi/">Simple voronoi</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/patterns/stripes/">Stripes</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/patterns/wavy-stripes/">Wavy stripes</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/sdf/">Sdf</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/sdf/circle/">Circle</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/sdf/square/">Square</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/sdf/star/">Star</a></li>
+    <li class="level3 nav-node"><a href="examples/fragment/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/shapes/doughnut/">Doughnut</a></li>
+    <li class="level4 nav-leaf"><a href="examples/fragment/shapes/metaballs/">Metaballs</a></li>
+    <li class="level2 nav-node"><a href="examples/language-reference/">Language-reference</a></li>
+    <li class="level3 nav-leaf"><a href="examples/language-reference/imports/">Imports</a></li>
+    <li class="level2 nav-node"><a href="examples/vertex/">Vertex</a></li>
+    <li class="level3 nav-leaf"><a href="examples/vertex/minimal/">Minimal</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Ultraviolet</a></p>
+
+  <ul class="nav-list">
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <p><img src="img/tyrian-menu-logo.svg" alt="Ultraviolet"></p>
+        <h1 id="ultraviolet" class="title">Ultraviolet</h1>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
